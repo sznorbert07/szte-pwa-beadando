@@ -1,0 +1,50 @@
+@import '/src/styles.scss';
+
+mat-list {
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+mat-list-item {
+  flex: 1;
+  height: 3rem;
+  font-size: 0.875rem;
+  font-weight: 400;
+  border-radius: 0.25rem;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    background-color: #3e3e3e67;
+  }
+}
+
+mat-icon {
+  background-color: rgba(100, 80, 179, 0.25);
+}
+
+.income {
+  .amount {
+    color: $green;
+  }
+}
+
+.expense {
+  .amount {
+    color: $red;
+  }
+}
+
+.transaction-description {
+  font-size: 1rem;
+  font-weight: 400;
+}
+
+.transaction-date {
+  font-size: 0.75rem;
+  font-weight: 400;
+  color: $text-dark;
+}

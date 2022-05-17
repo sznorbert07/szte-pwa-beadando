@@ -7,9 +7,9 @@
   <div>
     <h1>PWA beadandó</h1>
 
-    <p>Total income: <span>{{totalIncome | async}}</span></p>
-    <p>Total expenses: <span>{{totalExpense | async}}</span></p>
-    <p>Total balance: <span>{{totalBalance | async}}</span></p>
+    <p>Total income: <span>{{totalIncome$ | async}}</span></p>
+    <p>Total expenses: <span>{{totalExpense$ | async}}</span></p>
+    <p>Total balance: <span>{{totalBalance$ | async}}</span></p>
 
     <app-transaction-list [transactions]="transactions$ | async" title="Transactions"></app-transaction-list>
   </div>

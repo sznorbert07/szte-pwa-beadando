@@ -1,12 +1,12 @@
-import { Currency } from "./currency";
+import { Currency } from './currency';
 
 export enum TransactionType {
-  Income = "Income",
-  Expense = "Expense"
+  Income = 'Income',
+  Expense = 'Expense',
 }
 
 export interface Transaction {
-  id: number;
+  id?: number;
   date: Date;
   description: string;
   amount: number;

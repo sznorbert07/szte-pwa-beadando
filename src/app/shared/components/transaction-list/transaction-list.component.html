@@ -5,12 +5,17 @@
     [ngClass]="transaction.type === 'Income' ? 'income' : 'expense'"
   >
     <mat-icon mat-list-icon>paid</mat-icon>
-    <div mat-line class="transaction-description">{{ transaction.description }}</div>
+    <div mat-line class="transaction-description">
+      {{ transaction.description }}
+    </div>
     <div mat-line class="transaction-date">{{ transaction.date | date }}</div>
 
     <div class="amount">
-      <span>{{ transaction.type === 'Income' ? '+':'-'}}&nbsp;</span>
-      <span>{{ transaction.amount | currency : transaction.currency : 'symbol-narrow':'4.2-2' }}</span>
+      <span>{{ transaction.type === "Income" ? "+" : "-" }}&nbsp;</span>
+      <span>{{
+        transaction.amount
+          | currency: transaction.currency:"symbol-narrow":"4.2-2"
+      }}</span>
     </div>
   </mat-list-item>
 </mat-list>

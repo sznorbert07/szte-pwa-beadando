@@ -1,31 +1,24 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, combineLatest, map, Observable, Subject } from 'rxjs';
+import Dixie from 'dexie';
+import { combineLatest, from, map, Observable } from 'rxjs';
 import { Currency } from '../model/currency';
 import { Transaction, TransactionType } from '../model/transaction';
+import { AppDB } from './db';
 
 @Injectable()
 export class BudgetService {
-  private _totalIncome: number;
-  private _totalExpense: number;
-  private _totalBalance: number;
+  public readonly totalIncome$: Observable<number>;
+  public readonly totalExpense$: Observable<number>;
+  public readonly totalBalance$: Observable<number>;
 
-  private _transactions: Transaction[] = [];
-  private readonly _transactions$: BehaviorSubject<Transaction[]>;
+  private readonly _transactions$!: Observable<Transaction[]>;
 
-  public readonly totalIncome: Observable<number>;
-  public readonly totalExpense: Observable<number>;
-  public readonly totalBalance: Observable<number>;
-
-  constructor() {
-    this._totalIncome = 0;
-    this._totalExpense = 0;
-    this._totalBalance = 0;
-
-    this._transactions$ = new BehaviorSubject<Transaction[]>(
-      this._transactions
+  constructor(private db: AppDB) {
+    this._transactions$ = from(
+      Dixie.liveQuery(() => db.transactions.toArray())
     );
 
-    this.totalIncome = this._transactions$.pipe(
+    this.totalIncome$ = this._transactions$.pipe(
       map((transactions) =>
         transactions.reduce((acc, transaction) => {
           if (transaction.type === TransactionType.Income) {
@@ -36,7 +29,7 @@ export class BudgetService {
         }, 0)
       )
     );
-    this.totalExpense = this._transactions$.pipe(
+    this.totalExpense$ = this._transactions$.pipe(
       map((transactions) =>
         transactions.reduce((acc, transaction) => {
           if (transaction.type === TransactionType.Expense) {
@@ -47,14 +40,10 @@ export class BudgetService {
         }, 0)
       )
     );
-    this.totalBalance = combineLatest([
-      this.totalIncome,
-      this.totalExpense,
+    this.totalBalance$ = combineLatest([
+      this.totalIncome$,
+      this.totalExpense$,
     ]).pipe(map(([totalIncome, totalExpense]) => totalIncome - totalExpense));
-
-    this.addIncome(100);
-    this.addExpense(50);
-    this.addIncome(200);
   }
 
   public get incomes$(): Observable<Transaction[]> {
@@ -78,33 +67,30 @@ export class BudgetService {
   }
 
   public get transactions$(): Observable<Transaction[]> {
-    return this._transactions$.asObservable();
+    return this._transactions$;
   }
 
-  public addTransaction(transaction: Transaction): void {
-    this._transactions.push(transaction);
-    this._transactions$.next(this._transactions);
+  public async addTransactionAsync(transaction: Transaction): Promise<void> {
+    await this.db.transactions.add(transaction);
   }
 
-  public addIncome(amount: number): void {
-    this.addTransaction({
-      id: 0,
+  public async addIncomeAsync(amount: number): Promise<void> {
+    await this.addTransactionAsync({
       amount,
       date: new Date(),
       description: 'test',
       type: TransactionType.Income,
-      currency: Currency.HUF
+      currency: Currency.HUF,
     });
   }
 
-  public addExpense(amount: number): void {
-    this.addTransaction({
-      id: 0,
+  public async addExpenseAsync(amount: number): Promise<void> {
+    this.addTransactionAsync({
       amount,
       date: new Date(),
       description: 'test',
       type: TransactionType.Expense,
-      currency: Currency.HUF
+      currency: Currency.HUF,
     });
   }
 

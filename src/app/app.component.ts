@@ -9,18 +9,16 @@ import { BudgetService } from './shared/services/budget.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  public readonly totalIncome: Observable<number>;
-  public readonly totalExpense: Observable<number>;
-  public readonly totalBalance: Observable<number>;
+  public readonly totalIncome$: Observable<number>;
+  public readonly totalExpense$: Observable<number>;
+  public readonly totalBalance$: Observable<number>;
 
   public readonly transactions$: Observable<Transaction[]>;
 
   constructor(private budgetService: BudgetService) {
-    this.budgetService.printTest();
-
-    this.totalIncome = this.budgetService.totalIncome;
-    this.totalExpense = this.budgetService.totalExpense;
-    this.totalBalance = this.budgetService.totalBalance;
+    this.totalIncome$ = this.budgetService.totalIncome$;
+    this.totalExpense$ = this.budgetService.totalExpense$;
+    this.totalBalance$ = this.budgetService.totalBalance$;
 
     this.transactions$ = this.budgetService.transactions$;
   }

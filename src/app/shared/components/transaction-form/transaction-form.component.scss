@@ -1,0 +1,59 @@
+@import '/src/styles.scss';
+
+mat-form-field {
+  width: 100%;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  display: none;
+}
+
+.mat-radio-button {
+  width: 100%;
+  margin: .5rem 0;
+}
+
+::ng-deep {
+
+  .mat-form-field,
+  .mat-select-value {
+    color: $text-light  !important;
+  }
+
+  .mat-radio-outer-circle {
+    border-color: $ming;
+  }
+
+  .mat-option {
+    color: $text-light  !important;
+    background-color: $jet-dark  !important;
+  }
+
+  .mat-form-field-label {
+    color: $text-dark  !important;
+  }
+
+  .mat-focused .mat-form-field-label {
+    /*change color of label*/
+    color: $ming  !important;
+  }
+
+  .mat-form-field-underline {
+    /*change color of underline*/
+    background-color: $ming  !important;
+  }
+
+  .mat-form-field-ripple {
+    /*change color of underline when focused*/
+    background-color: $ming-light  !important;
+  }
+}
+
+#buttons {
+  margin-top: 1rem;
+}
+
+#btn-add {
+  padding: 0.5rem 3rem;
+}

@@ -2,14 +2,16 @@
 
 mat-list {
   padding: 8px;
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  gap: 15px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  max-height: 300px;
+}
+
+.header {
+  color: $text-light;
 }
 
 mat-list-item {
-  flex: 1;
   height: 3rem;
   color: $text-light !important;
   border-radius: 0.25rem;

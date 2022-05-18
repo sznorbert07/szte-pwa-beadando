@@ -1,5 +1,5 @@
 <mat-list>
-  <div mat-subheader *ngIf="title && title.length > 0">{{ title }}</div>
+  <div class="header" mat-subheader *ngIf="title && title.length > 0">{{ title }}</div>
   <mat-list-item
     *ngFor="let transaction of transactions"
     [ngClass]="transaction.type === 'Income' ? 'income' : 'expense'"

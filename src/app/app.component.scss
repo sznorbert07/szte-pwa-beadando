@@ -41,4 +41,21 @@
       flex: 1 0 100%;
     }
   }
+
+  #motd {
+    flex: 1 0 100%;
+  }
 }
+
+.budget-statistics-table {
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.02);
+  color: $text-light !important;
+}
+
+.mat-cell, .mat-header-cell {
+  color: $text-light !important;
+  border-bottom-color: $text-dark;
+}
+
+

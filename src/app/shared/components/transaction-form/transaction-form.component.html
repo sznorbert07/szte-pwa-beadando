@@ -1,0 +1,31 @@
+<form (ngSubmit)="onSubmit()" [formGroup]="transactionForm">
+  <h2>Transaction</h2>
+
+  <mat-form-field>
+    <input matInput placeholder="Description" formControlName="description">
+  </mat-form-field>
+
+  <mat-form-field>
+    <span matPrefix>{{currencySymbol}}&nbsp;</span>
+    <input matInput type="number" placeholder="Amount" formControlName="amount">
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-select placeholder="Currency" formControlName="currency" #currency>
+      <mat-option *ngFor="let currency of currencies" [value]="currency">
+        {{ currency }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-radio-group formControlName="type">
+    <mat-radio-button value="Income">Income</mat-radio-button>
+    <mat-radio-button value="Expense">Expense</mat-radio-button>
+  </mat-radio-group>
+
+  <div id="buttons">
+    <button id="btn-add" mat-raised-button type="submit" [disabled]="transactionForm.invalid">
+      Add
+    </button>
+  </div>
+</form>

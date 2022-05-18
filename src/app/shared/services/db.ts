@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import Dexie from 'dexie';
+import Dexie, {Transaction as DexieTransaction} from 'dexie';
 import { Currency } from '../model/currency';
 import { Transaction, TransactionType } from '../model/transaction';
 
@@ -9,7 +9,7 @@ export class AppDB extends Dexie {
 
   constructor() {
     super('AppDB');
-    this.version(1).stores({
+    this.version(2).stores({
       transactions: '++id, date, description, amount, type, currency',
     });
 
